@@ -1,0 +1,100 @@
+{include file="public/header" /}
+
+<body>
+<div class="x-body">
+    <form class="layui-form" id="finCms-form">
+        <div class="layui-form-item">
+            <label for="name" class="layui-form-label">
+                <span class="x-red">*</span>菜单名称
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="name" name="name" required="" placeholder="请填写菜单名" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="m" class="layui-form-label">
+                <span class="x-red">*</span>模块名
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="m" name="m" required="" placeholder="模块名如admin" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="c" class="layui-form-label">
+                <span class="x-red">*</span>控制器名
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="c" name="c" placeholder="控制器名如index" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="f" class="layui-form-label">
+                <span class="x-red">*</span>方法名
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="f" name="f" placeholder="方法名如index" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span>菜单类型</label>
+            <div class="layui-input-block">
+                <input type="radio" name="type" lay-skin="primary" value="0" title="前端栏目" checked="">
+                <input type="radio" name="type" lay-skin="primary" value="1" title="后台菜单">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <button id="finCms-form-submit" type="button" class="layui-btn">
+                增加
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    var SCOPE = {
+        'save_url' : '/admin/menu/add',
+        'jump_url' : ''
+    }
+</script>
+<!--<script>
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
+        var form = layui.form
+            , layer = layui.layer;
+
+        //监听提交
+        /*          form.on('submit(add)', function(data){
+                      var params={
+                          url:'admin/menu/add',
+                          type:'post',
+                          data:$("#finCms-form-add").serializeArray(),
+                          sCallback:function(res){
+                              if(res.status === 1){
+                                  // window.base.setLocalStorage('token',res.data);
+                                  console.log(res.data);
+                                  dialog.success(res.message, 'index');
+                              }
+                              if(res.status === 0){
+                                  dialog.error(res.message);
+                              }
+                          },
+                          eCallback:function(e){
+                              // console.log(e);
+                              dialog.error(e.responseJSON.msg);
+                          }
+                      };
+                      window.base.getData(params);
+                    return false;
+                  });*/
+
+
+    });
+</script>-->
+</body>
+
+</html>

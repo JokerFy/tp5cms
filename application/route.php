@@ -12,3 +12,7 @@ use think\Route;
 
 Route::post('api/:version/token/app', 'api/:version.Token/getAppToken');
 
+//Image
+Route::post('api/:version/image/toupload', 'api/:version.Image/upload');
+Route::post('api/:version/image/kindupload', 'api/:version.Image/kindupload');
+

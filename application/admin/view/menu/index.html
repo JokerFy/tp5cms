@@ -9,7 +9,7 @@ $level0[] = $item;
 
 foreach($navs as $items){
 foreach($level0 as $item){
-if($items['parentid'] ===$item['menu_id']  ){
+if($items['parentid'] ===$item['id']  ){
 $level1[] = $items;
 }
 }
@@ -20,9 +20,9 @@ $level1[] = $items;
 <div class="x-nav">
       <span class="layui-breadcrumb">
         <a href="">首页</a>
-        <a href="">演示</a>
+        <a href="">后台菜单</a>
         <a>
-          <cite>导航元素</cite>
+          <cite>菜单管理</cite>
         </a>
       </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
@@ -44,54 +44,48 @@ $level1[] = $items;
             <th width="70">ID</th>
             <th>栏目名</th>
             <th width="50">排序</th>
-            <th width="50">状态</th>
             <th width="220">操作</th>
         </thead>
         <tbody class="x-cate" id="tabodyform">
         {volist name="level0" id="navs"}
-        <tr cate-id='{$navs.menu_id}' fid='0'>
-            <td>{$navs.menu_id}</td>
+        <tr cate-id='{$navs.id}' fid='0'>
+            <td>{$navs.id}</td>
             <td>
                 <i class="layui-icon x-show" status='true'>&#xe623;</i>
                 {$navs.name}
             </td>
-            <td><input type="text" class="layui-input x-sort" name="listorder[{$navs.menu_id}]" value="{$navs.listorder}"></td>
-            <td>
-                <input type="checkbox" name="switch" lay-text="开启|停用" checked="" lay-skin="switch">
-            </td>
+            <td><input type="text" class="layui-input x-sort" name="listorder[{$navs.id}]" value="{$navs.listorder}"></td>
             <td class="td-manage">
-                <button class="layui-btn layui-btn layui-btn-xs"   attr-id="{$navs.menu_id}" onclick="layer_edit('编辑','edit')"><i
+                <button class="layui-btn layui-btn layui-btn-xs"   attr-id="{$navs.id}" onclick="layer_edit('编辑','edit',this)"><i
                         class="layui-icon">&#xe642;</i>编辑
                 </button>
                 <button class="layui-btn layui-btn-warm layui-btn-xs" onclick="x_admin_show('添加','add')"><i
                         class="layui-icon">&#xe642;</i>添加子栏目
                 </button>
-                <button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,'要删除的id')"
-                        href="javascript:;"><i class="layui-icon">&#xe640;</i>删除
+                <button class="layui-btn-danger layui-btn layui-btn-xs" attr-id="{$navs.id}" onclick="CmsDelete(this)" href="javascript:;"><i class="layui-icon">&#xe640;</i>删除
                 </button>
             </td>
         </tr>
         {volist name="level1" id="nav"}
-        {if condition="$nav['parentid'] eq $navs['menu_id']"}
-        <tr cate-id='{$nav.menu_id}' fid='{$nav.parentid}'>
-            <td>{$nav.menu_id}</td>
+        {if condition="$nav['parentid'] eq $navs['id']"}
+        <tr cate-id='{$nav.id}' fid='{$nav.parentid}'>
+            <td>{$nav.id}</td>
             <td>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 {$nav.name}
             </td>
-            <td><input type="text" class="layui-input x-sort" name="listorder[{$nav.menu_id}]" value="{$nav.listorder}"></td>
+            <td><input type="text" class="layui-input x-sort" name="listorder[{$nav.id}]" value="{$nav.listorder}"></td>
             <td>
                 <input type="checkbox" name="switch" lay-text="开启|停用" checked="" lay-skin="switch">
             </td>
             <td class="td-manage">
-                <button class="layui-btn layui-btn layui-btn-xs" onclick="layer_edit('编辑','edit')" attr-id="{$nav.menu_id}"><i
+                <button class="layui-btn layui-btn layui-btn-xs" onclick="layer_edit('编辑','edit',this)" attr-id="{$nav.id}"><i
                         class="layui-icon">&#xe642;</i>编辑
                 </button>
                 <button class="layui-btn layui-btn-warm layui-btn-xs" onclick="x_admin_show('添加','add')"><i
                         class="layui-icon">&#xe642;</i>添加子栏目
                 </button>
-                <button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,'要删除的id')"
-                        href="javascript:;"><i class="layui-icon">&#xe640;</i>删除
+                <button class="layui-btn-danger layui-btn layui-btn-xs" attr-id="{$nav.id}" onclick="CmsDelete(this)" href="javascript:;"><i class="layui-icon">&#xe640;</i>删除
                 </button>
             </td>
         </tr>
@@ -107,27 +101,10 @@ $level1[] = $items;
 
 <script>
     var SCOPE = {
-        'listorder_url' : '/admin/menu/listorder',
-        'edit_url' : '{:url("menu/edit")}?id=',
-        'edit_id' : '{$nav.menu_id}'
-    }
-    /*用户-删除*/
-    function member_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {icon: 1, time: 1000});
-        });
+        'edit_url':'/admin/menu/edit?id=',
+        'model' : 'menu'
     }
 
-    function delAll(argument) {
-        var data = tableCheck.getData();
-        layer.confirm('确认要删除吗？' + data, function (index) {
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-    }
 </script>
 
 </body>

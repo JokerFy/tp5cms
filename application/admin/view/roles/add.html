@@ -1,0 +1,85 @@
+{include file="public/header" /}
+<style>
+    .pstyle{display: flex;flex-direction: row;flex-wrap: wrap;align-items: center;height: 32px;}
+    .layui-form-item .layui-form-checkbox[lay-skin="primary"]{margin-top: 5px;margin-right: 2px}
+</style>
+<script>
+    $(function () {
+        $('input').click(function(){
+            var level = $(this).attr('level');
+            if(level == 1){
+                var str='_';
+                var inputs = $('input');
+                $(this).prop('checked')?inputs.prop('checked',true):inputs.prop('checked',false);
+            }
+            else if(level==2)
+            {
+                var id = $(this).attr('id');
+                var inputs = $('input[pid='+id+']');
+                $(this).prop('checked')?inputs.prop('checked',true):inputs.prop('checked',false);
+            }
+            else if(level==3)
+            {
+                if($(this).prop('checked'))
+                {
+                    var pid = $(this).attr('pid');
+                    $('input[id='+pid+']').prop('checked',true);
+
+                    var ppid = $('input[id='+pid+']').attr('pid');
+                    $('input[id='+ppid+']').prop('checked',true);
+                }
+            }
+        });
+    });
+
+</script>
+<body>
+<div class="x-body">
+    <form class="layui-form layui-form-pane" id="finCms-form">
+        <div class="layui-form-item">
+            <label for="title" class="layui-form-label">
+                <span class="x-red">*</span>角色名
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="title" name="title" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">
+                拥有权限
+            </label>
+            <table  class="layui-table layui-input-block">
+                <tbody>
+                <tr>
+                    <td>
+                    {foreach $ruleList as $vo}
+                    <p class="pstyle" style="margin-left:{$vo['level']*20}px;
+                    {if condition="$vo.level eq 3"}float:left;
+                    {else/}clear:both
+                    {/if}">
+                        <input lay-ignore id="{$vo.id}" class="input" name="rules[]" pid="{$vo.pid}" level="{$vo.level}" value="{$vo.id}"  type="checkbox"/>
+                        {if condition="$vo['level'] eq 1"}<span style="font-weight: bold">[项目]</span>
+                        {elseif condition="$vo['level'] eq 2" /}<span style="font-weight: bold">[模块]</span>
+                        {/if}
+                        <label name="name" value="{$vo.id}" >{$vo.title}</label>
+                    </p>
+                    {/foreach}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="layui-form-item">
+            <button class="layui-btn" lay-submit="" lay-filter="lay-finCms-form">增加</button>
+        </div>
+    </form>
+</div>
+<script>
+    var SCOPE = {
+            'save_url':'/admin/roles/store'
+        }
+</script>
+</body>
+
+</html>

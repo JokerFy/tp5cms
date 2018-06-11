@@ -13,13 +13,13 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => '127.0.0.1',
+    'hostname'        => '112.74.57.18',
     // 数据库名
-    'database'        => 'imooc_singcms',
+    'database'        => 'tp5_cms',
     // 用户名
     'username'        => 'root',
     // 密码
-    'password'        => 'root',
+    'password'        => '123456',
     // 端口
     'hostport'        => '',
     // 连接dsn
@@ -27,7 +27,7 @@ return [
     // 数据库连接参数
     'params'          => [],
     // 数据库编码默认采用utf8
-    'charset'         => 'utf8',
+    'charset'         => 'utf8mb4',
     // 数据库表前缀
     'prefix'          => 'cms_',
     // 数据库调试模式

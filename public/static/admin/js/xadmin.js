@@ -4,6 +4,7 @@ $(function () {
     function() {
         layer = layui.layer;
         element = layui.element;
+        var parentId=parent.$("#test").val();
     });
 
     //触发事件
@@ -197,26 +198,3 @@ function x_admin_close(){
     parent.layer.close(index);
 }
 
-function layer_edit(title,url,w,h){
-    var id = SCOPE.edit_id;
-    var urls = SCOPE.edit_url+id;
-    if (title == null || title == '') {
-        title=false;
-    };
-    if (w == null || w == '') {
-        w=($(window).width()*0.9);
-    };
-    if (h == null || h == '') {
-        h=($(window).height() - 50);
-    };
-    layer.open({
-        type: 2,
-        area: [w+'px', h +'px'],
-        fix: false, //不固定
-        maxmin: true,
-        shadeClose: true,
-        shade:0.4,
-        title: title,
-        content: urls,
-    });
-}

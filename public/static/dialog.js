@@ -11,13 +11,18 @@
         },
 
         //弹窗操作成功弹出层
-        successon: function (message) {
+        successon: function (message,url) {
             layer.open({
                 content: message,
                 icon: 1,
                 yes: function () {
-                    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
-                    parent.layer.close(index);
+                    if(parent.layer.getFrameIndex(window.name)){
+                        var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                        window.parent.location.reload();
+                        parent.layer.close(index);
+                    }else{
+                        location.reload()
+                    }
                 },
             });
         },
@@ -28,7 +33,10 @@
                 content: message,
                 icon: 1,
                 yes: function () {
-                    location.href = url;
+                    if(url){
+                        location.href = url;
+                    }else
+                        location.reload();
                 },
             });
         },

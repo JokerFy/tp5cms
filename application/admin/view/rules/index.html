@@ -1,0 +1,122 @@
+{include file="public/header" /}
+
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">管理员管理</a>
+        <a>
+          <cite>权限管理</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+      <!--  <form class="layui-form layui-col-md12 x-so layui-form-pane" id="finCms-form">
+            <div class="layui-input-inline" style="margin-bottom: 1px">
+                <select name="pid">
+                    <option value="0">|-&#45;&#45;顶级权限&#45;&#45;</option>
+                    {foreach $field as $vo}
+                    <option value="{$vo['id']}">{$vo['title']}</option>
+                    {/foreach}
+                </select>
+            </div>
+            <input class="layui-input" placeholder="权限名" required="" lay-verify="required" name="title" >
+            <input class="layui-input" placeholder="权限标识" required="" lay-verify="required" name="name">
+            <input class="layui-input" placeholder="导航名称" required="" lay-verify="required" name="nav">
+            <button class="layui-btn"  lay-submit="" lay-filter="lay-finCms-form"><i class="layui-icon"></i>增加</button>
+        </form>-->
+            <button class="layui-btn" lay-submit="" onclick="x_admin_show('添加','add')"><i
+                    class="layui-icon"></i>增加
+            </button>
+    </div>
+
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>权限规则</th>
+            <th>权限名称</th>
+            <th>导航分类</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+        {foreach $field as $vo}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.name}</td>
+            <td>{$vo.title}</td>
+            <td>{$vo.nav}</td>
+            <td class="td-manage">
+                <a title="编辑"  onclick="layer_edit('编辑','edit',this)" attr-id="{$vo.id}">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+                <a title="删除" onclick="member_del(this,'要删除的id')">
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    <div class="page">
+        <div>
+            <a class="prev" href="">&lt;&lt;</a>
+            <a class="num" href="">1</a>
+            <span class="current">2</span>
+            <a class="num" href="">3</a>
+            <a class="num" href="">489</a>
+            <a class="next" href="">&gt;&gt;</a>
+        </div>
+    </div>
+
+</div>
+<script>
+    var SCOPE = {
+        'edit_url':'/admin/rules/edit?id=',
+        'model' : 'auth_rule',
+        'methodType' : 'add',
+    };
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+    });
+    /*用户-停用*/
+    function member_stop(obj,id){
+        layer.confirm('确认要停用吗？',function(index){
+
+            if($(obj).attr('title')=='启用'){
+
+                //发异步把用户状态进行更改
+                $(obj).attr('title','停用')
+                $(obj).find('i').html('&#xe62f;');
+
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                layer.msg('已停用!',{icon: 5,time:1000});
+
+            }else{
+                $(obj).attr('title','启用')
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                layer.msg('已启用!',{icon: 5,time:1000});
+            }
+
+        });
+    }
+
+</script>
+</body>
+
+</html>

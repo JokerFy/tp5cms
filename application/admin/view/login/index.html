@@ -15,7 +15,7 @@
     <script src="__STATIC__/admin/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="__STATIC__/admin/js/xadmin.js"></script>
     <script type="text/javascript" src="__STATIC__/dialog.js"></script>
-    <script type="text/javascript" src="__STATIC__/common.js"></script>
+    <script type="text/javascript" src="__STATIC__/login.js"></script>
 </head>
 <body class="login-bg">
 
@@ -42,19 +42,18 @@
             $userName=$('#username'), $pwd=$('#password');
             //监听提交
             form.on('submit(login)', function(data){
-/*                $.post("/api/v1/token/app",
+                $.post("/admin/login/check",
                     {ac:$userName.val(),se:$pwd.val()}, function(result){
                     if(result.status === 0) {
                         dialog.error(result.message);
                     }
                     if(result.status === 1) {
                         console.log(result);
-                        window.base.setLocalStorage('token',result.data);
                         dialog.success(result.message, 'index');
                     }
                 },'JSON');
-                */
-                var params={
+
+                /*var params={
                     url:'api/v1/token/app',
                     type:'post',
                     data:{ac:$userName.val(),se:$pwd.val()},
@@ -73,7 +72,7 @@
                         dialog.error(e.responseJSON.msg);
                     }
                 };
-                window.base.getData(params);
+                window.base.getData(params);*/
                 return false;
             });
         });

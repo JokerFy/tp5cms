@@ -20,13 +20,24 @@ class Menu extends Model
         );
 
         return $menu = self::where($data)
-            ->order('listorder desc,menu_id desc')
+            ->order('listorder desc,id desc')
+            ->select();
+    }
+
+    public static function getBarMenus() {
+        $data = array(
+            'status' => 1,
+            'type' => 0,
+        );
+
+       return $res = self::where($data)
+            ->order('listorder desc,id desc')
             ->select();
     }
 
     public static function updateListorderById($menuId, $v)
     {
-        return self::where('menu_id', $menuId)
+        return self::where('id', $menuId)
             ->update(['listorder' => $v]);
     }
 }

@@ -1,0 +1,77 @@
+<?php
+  $navs = model("Menu")->getNavMenus();
+foreach($navs as $item){
+if($item['level'] === 0){
+$level0[] = $item;
+}
+if($item['level'] === 1){
+$level1[] = $item;
+}
+}
+?>
+<!-- 左侧菜单开始 -->
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+            {volist name="level0" id="nav"}
+            <li id="level1">
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6ab;</i>
+                    <cite>{$nav.name}</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                {volist name="level1" id="nav2"}
+                {if condition="$nav2['parentid'] eq $nav['id']"}
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="/{$nav2.m}/{$nav2.c}/{$nav2.f}">
+                            <i class="iconfont">&#xe70b;</i>
+                            <cite>{$nav2.name}</cite>
+                        </a>
+                    </li>
+                </ul>
+                {/if}
+                {/volist}
+            </li>
+            {/volist}
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe726;</i>
+                    <cite>管理员管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="/admin/admin/index">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>管理员列表</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="/admin/roles/index">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>角色管理</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="admin-cate.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>权限分类</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="/admin/rules/index">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>权限管理</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- <div class="x-slide_left"></div> -->
+<!-- 左侧菜单结束 -->
+<script>
+
+</script>

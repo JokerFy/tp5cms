@@ -1,8 +1,82 @@
 {layout name="layout" replace="[__REPLACE__]" /}
 <body>
+
+<!-- 左侧菜单开始 -->
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+            {volist name="navMenu" id="vo"}
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe726;</i>
+                    <cite>{$vo.title}</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                {if condition="$admin['id'] neq 1"}
+                    {if condition="$vo['son'][0] neq ''"}
+                        {volist name="vo['son']" id="sub"}
+                        <li>
+                            <a _href="/{$sub.name}">
+                                <i class="iconfont">&#xe6a7;</i>
+                                <cite>{$sub.title}</cite>
+                            </a>
+                        </li>
+                        {/volist}
+                    {/if}
+                    {else/}
+                    {volist name="vo['son']" id="sub"}
+                    <li>
+                        <a _href="/{$sub.name}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>{$sub.title}</cite>
+                        </a>
+                    </li>
+                    {/volist}
+                {/if}
+                </ul>
+            </li>
+            {/volist}
+
+<!--            <li>
+                 <a href="javascript:;">
+                     <i class="iconfont">&#xe726;</i>
+                     <cite>管理员管理</cite>
+                     <i class="iconfont nav_right">&#xe697;</i>
+                 </a>
+                 <ul class="sub-menu">
+                     <li>
+                         <a _href="/admin/admin/index">
+                             <i class="iconfont">&#xe6a7;</i>
+                             <cite>管理员列表</cite>
+                         </a>
+                     </li >
+                     <li>
+                         <a _href="/admin/roles/index">
+                             <i class="iconfont">&#xe6a7;</i>
+                             <cite>角色管理</cite>
+                         </a>
+                     </li >
+                     <li>
+                         <a _href="admin-cate.html">
+                             <i class="iconfont">&#xe6a7;</i>
+                             <cite>权限分类</cite>
+                         </a>
+                     </li >
+                     <li>
+                         <a _href="/admin/rules/index">
+                             <i class="iconfont">&#xe6a7;</i>
+                             <cite>权限管理</cite>
+                         </a>
+                     </li >
+                 </ul>
+             </li>-->
+        </ul>
+    </div>
+</div>
 <!-- 顶部开始 -->
 <div class="container">
-    <div class="logo"><a href="__STATIC__/admin/index.html">X-admin v2.0</a></div>
+    <div class="logo"><a href="__STATIC__/admin/index.html">finCms</a></div>
     <div class="left_open">
         <i title="展开左侧栏" class="iconfont">&#xe699;</i>
     </div>
@@ -18,10 +92,10 @@
     </ul>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;">admin</a>
+            <a href="javascript:;">{$admin.username}</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
-                <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+                <!--<dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>-->
                 <dd><a href="/admin/login/loginout">退出</a></dd>
             </dl>
         </li>

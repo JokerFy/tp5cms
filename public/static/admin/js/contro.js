@@ -1,36 +1,4 @@
-$(document).ready(function() {
-    /**
-     * 提交form表单操作
-     */
-    $("#finCms-form-submit").click(function () {
-        var data = $("#finCms-form").serializeArray();
-        postData = {};
-        $(data).each(function (i) {
-            postData[this.name] = this.value;
-        });
-        console.log(postData);
-        // 将获取到的数据post给服务器
-        url = SCOPE.save_url;
-        jump_url = SCOPE.jump_url;
-        $.post(url, postData, function (result) {
-            if (result.status === 1) {
-                //成功
-                return dialog.successon(result.message);
-            } else if (result.status === 0) {
-                // 失败
-                return dialog.error(result.message);
-            }
-        }, "JSON");
-    });
-    /*
-    编辑模型
-     */
- /*   $('.finEdit').on('click', function () {
-        var id = $(this).attr('attr-id');
-        var url = 'edit' + '&id=' + id;
-        window.location.href = {:url('admin/menu/edit',['id'=>1])};
-    });*/
-
+$(function () {
     /**
      * 删除操作JS
      */
@@ -75,28 +43,6 @@ $(document).ready(function() {
             }
             , "JSON");
     }
-
-    /**
-     * 排序操作
-     */
-    $('#button-listorder').click(function () {
-        // 获取 listorder内容
-        var inputs=$('#tabodyform').find("input[type='text']");
-        postData = {};
-        $(inputs).each(function(i){
-            postData[this.name] = this.value;
-        });
-        var url = SCOPE.listorder_url;
-        $.post(url, postData, function (result) {
-            if (result.status === 1) {
-                //成功
-                return dialog.success(result.message,'index');
-            } else if (result.status === 0) {
-                // 失败
-                return dialog.error(result.message,'index');
-            }
-        }, "JSON");
-    });
 
     /**
      * 修改状态
@@ -158,4 +104,7 @@ $(document).ready(function() {
         }, "json");
 
     });
-})
+
+});
+
+

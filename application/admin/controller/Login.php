@@ -20,10 +20,10 @@ class Login extends Controller
         return $this->fetch();
     }
 
-    public function check($username = '', $password = '')
+    public function check($ac = '', $se = '')
     {
         $ret = new Admin();
-        $result = $ret->getAdminByUsername($username, $password);
+        $result = $ret->getAdminByUsername($ac, $se);
         if ($result) {
             session('adminUser', $result);
             return show(1, '登录成功', $ret);
